@@ -11,7 +11,8 @@ var app = new Vue({
         CantidadName: "",
         tableProducts: 0,
         dataEdit: {codigo: "", name: "", unidad: "", cantidad: ""},
-        productSelect: ""
+        productSelect: "",
+        proveedorActual: window.localStorage.getItem("proveedor") || ""
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
@@ -33,6 +34,10 @@ var app = new Vue({
             (this.products).push({codigo, name, unidad, cantidad});
             const stringJoson = JSON.stringify(this.products);
             window.localStorage.setItem("products", stringJoson);
+            if (this.proveedorActual.trim().length === 0) {
+                this.proveedorActual = this.ProveedorName;
+                window.localStorage.setItem("proveedor", this.ProveedorName);
+            }
         },
         setRegisterSelect: function({...register}) {
             this.setProductSelect(register.codigo);
@@ -55,6 +60,12 @@ var app = new Vue({
         removeProducto: function() {
             const arrayProducts = this.products.filter((element) => element.codigo !== this.productSelect);
             this.products = arrayProducts;
+            const stringJoson = JSON.stringify(this.products);
+            window.localStorage.setItem("products", stringJoson);
+            if (this.products.length === 0) {
+                this.proveedorActual = "";
+                window.localStorage.setItem("proveedor", this.ProveedorName);
+            }
         },
         handleClean: function() {
             this.cleanCell();
@@ -92,7 +103,12 @@ var app = new Vue({
 
             if(!(/^[0-9]+$/g.test(this.dataEdit.codigo))) (this.warningsEdit).push("Codigo de barras debe ser numero");
             if(!(/^([0-9]+.*[0-9]+)$|^([0-9]+)$/g.test(this.dataEdit.cantidad))) (this.warningsEdit).push("Cantidad debe ser numero");
+        },
+        removeAllRegister: function() {
+            this.products = [];
+            window.localStorage.setItem("products", this.products);
+            this.proveedorActual = "";
+            window.localStorage.setItem("proveedor", "");
         }
     }
 });
-

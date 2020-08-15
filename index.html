@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Mercancia</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="./src/css/index.css">
+    <link rel="stylesheet" href="./css/icofont/icofont.min.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
     <header>
@@ -15,13 +16,14 @@
     </header>
     <div class="container" id="app">
         <form>
-            <div class="form-group">
+            <div v-if="proveedorActual.trim().length === 0" class="form-group">
                 <label for="Proveedor">Proveedor:</label>
-                <select id="Proveedor" class="custom-select" v-model="ProveedorName">
+                <select id="Proveedor" class="custom-select" aria-describedby="helpProveedor" v-model="ProveedorName">
                     <option value="">Selecciones un proveedor..</option>
                     <option>Capistrano</option>
                     <option>Salmi</option>
                 </select>
+                <small id="helpProveedor" class="form-text text-muted">Una hecho el primer registro el proveedor no se podra modificar, a menos que elimine todos los registros</small>
             </div>
 
             <div class="form-group">
@@ -55,15 +57,17 @@
                 </ul>
             </div>
 
-            <div class="form-check-inline">
-                <div class="btn btn-warning" type="reset" id="cleanCamps" ref="cleanCamps">Limpiar Campos</div>
-            </div>
+            <div class="btn btn-warning form-check-inline" type="reset" id="cleanCamps" ref="cleanCamps">Limpiar Campos</div>
 
             <div class="btn btn-primary" id="addRegister" ref="addRegister">Añadir Registro</div>
         </form>
 
         <div id="divider"></div>
-        
+
+        <div v-if="proveedorActual.trim().length !== 0" class="alert alert-secondary" role="alert">
+            Proveedor actual: {{proveedorActual}}
+        </div>
+
         <div class="containerTable">
         <table class="table table-striped">
             <thead class="thead-dark">
@@ -83,8 +87,8 @@
                     <td>{{ product.unidad}}</td>
                     <td>{{ product.cantidad}}</td>
                     <td>
-                        <div class="btn btn-warning" data-toggle="modal" data-target="#modalEdit" @click="setRegisterSelect(product)">Edit</div>
-                        <div class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" @click="setProductSelect(product.codigo)">Delete</div>
+                        <div class="btn btn-warning icofont-edit btn-spaceB" data-toggle="modal" data-target="#modalEdit" @click="setRegisterSelect(product)"></div>
+                        <div class="btn btn-danger icofont-bin btn-spaceB" data-toggle="modal" data-target="#modalDelete" @click="setProductSelect(product.codigo)"></div>
                     </td>
                 </tr>
             </tbody>
@@ -169,7 +173,30 @@
             </div>
         </div>
 
-        <button class="btn btn-primary">Guardar en el servidor</button>
+        <button class="btn btn-success form-check-inline">Generar archivo</button>
+        <button class="btn btn-danger" data-toggle="modal" data-target="#modalDeleteAlRegister">Eliminar registros</button>
+        
+        <div class="modal fade" id="modalDeleteAlRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Eiminando todos los registros</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    ¿Quiere eliminar todos los productos registrados hasta el momentos?.
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal" @click="removeAllRegister()">Aceptar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

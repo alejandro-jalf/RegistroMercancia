@@ -19,3 +19,7 @@ body {
     max-height: 400px;
     overflow: auto;
 }
+
+.btn-spaceB{
+    margin-bottom: 10px;
+}
