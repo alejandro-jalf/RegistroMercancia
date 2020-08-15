@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Mercancia</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="navbar-brand">Registro de mercancia</div>
+        </nav>
+    </header>
+    <div class="container" id="app">
+        <form>
+            <div class="form-group">
+                <label for="Proveedor">Proveedor:</label>
+                <select id="Proveedor" class="custom-select" v-model="ProveedorName">
+                    <option value="">Selecciones un proveedor..</option>
+                    <option>Capistrano</option>
+                    <option>Salmi</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="CodigoBarras">Codigo de barras:</label>
+                <input id="CodigoBarras" class="form-control" type="text" placeholder="Ingrese el codigo de barras" v-model="CodigoBarrasName">
+            </div>
+            
+            <div class="form-group">
+                <label for="Producto">Producto:</label>
+                <input id="Producto" class="form-control" type="text" placeholder="Nombre del producto" v-model="ProductoName">
+            </div>
+
+            <div class="form-group">
+                <label for="Unidad">Unidad:</label>
+                <select id="Unidad" class="custom-select" name="" v-model="UnidadName">
+                    <option value="">Seleccione unidad...</option>
+                    <option>Kilos</option>
+                    <option>Piezas</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Cantidad">Cantidad</label>
+                <input id="Cantidad" class="form-control" type="text" name="" placeholder="Cantidad recibida" v-model="CantidadName">
+            </div>
+
+            <div v-if="warnings.length > 0" class="alert alert-warning" style="margin-top: 15px;">
+                <h3>Advertencias:</h3>
+                <ul>
+                    <li v-for="warning in warnings">{{warning}}</li>
+                </ul>
+            </div>
+
+            <div class="form-check-inline">
+                <div class="btn btn-warning" type="reset" id="cleanCamps" ref="cleanCamps">Limpiar Campos</div>
+            </div>
+
+            <div class="btn btn-primary" id="addRegister" ref="addRegister">Añadir Registro</div>
+        </form>
+
+        <div id="divider"></div>
+        
+        <div class="containerTable">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Codigo</th>
+                    <th>Producto</th>
+                    <th>Unidad</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody ref="bodyProducts" :key="tableProducts">
+                <tr v-for="product in products">
+                    <td>{{ product.codigo}}</td>
+                    <td>{{ product.name}}</td>
+                    <td>{{ product.unidad}}</td>
+                    <td>{{ product.cantidad}}</td>
+                    <td>
+                        <div class="btn btn-warning" data-toggle="modal" data-target="#modalEdit" @click="setRegisterSelect(product)">Edit</div>
+                        <div class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" @click="setProductSelect(product.codigo)">Delete</div>
+                    </td>
+                </tr>
+            </tbody>
+
+            <tfoot>
+                
+            </tfoot>
+        </table>
+        </div>
+
+        <!-- Modal para editar y eliminar -->
+        <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Eiminando registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    ¿Quiere eliminar al producto con codigo: {{productSelect}}?.
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal" @click="removeProducto()">Aceptar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modificando registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="CodigoBarrasEdit">Codigo de barras:</label>
+                        <input  id="CodigoBarrasEdit" class="form-control" type="text" placeholder="Ingrese el codigo de barras" v-model="dataEdit.codigo">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ProductoEdit">Producto:</label>
+                        <input id="ProductoEdit" class="form-control" type="text" placeholder="Nombre del producto" v-model="dataEdit.name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="UnidadEdit">Unidad:</label>
+                        <select id="UnidadEdit" class="custom-select" name="" v-model="dataEdit.unidad">
+                            <option value="">Seleccione unidad...</option>
+                            <option>Kilos</option>
+                            <option>Piezas</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CantidadEdit">Cantidad</label>
+                        <input id="CantidadEdit" class="form-control" type="text" name="" placeholder="Cantidad recibida" v-model="dataEdit.cantidad">
+                    </div>
+
+                    <div v-if="warningsEdit.length > 0" class="alert alert-warning" style="margin-top: 15px;">
+                        <h3>Advertencias:</h3>
+                        <ul>
+                            <li v-for="warning in warningsEdit">{{warning}}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" @click="updateProduct()">Aceptar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" ref="cancelEdit">Cancel</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary">Guardar en el servidor</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    
+    <script src="./scripts/index.js"></script>
+    <script src="./scripts/initServiceWorker.js"></script>
+</html>
