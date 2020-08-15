@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<defs>
+<font id="icofont" horiz-adv-x="1000" >
+<font-face font-family="IcoFont" font-weight="400" font-style="Regular" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="bin" horiz-adv-x="1000" unicode="&#xeebb;" d="M251-45c1-24 20-43 44-43h411c23 0 43 19 44 43l29 620h-558l30-620z m342 466c0 9 8 17 18 17h29c10 0 18-8 18-17v-355c0-9-9-17-18-17h-29c-10 0-18 8-18 17v355z m-125 0c0 9 8 17 18 17h29c9 0 17-8 17-17v-355c0-9-8-17-17-17h-29c-10 0-18 8-18 17v355z m-125 0c0 9 8 17 18 17h28c10 0 18-8 18-17v-355c0-9-8-17-18-17h-28c-10 0-18 8-18 17v355z m456 321h-190v36c0 5-4 10-9 10h-199c-5 0-10-5-10-10v-36h-189c-15 0-28-12-28-27v-87h652v87c0 15-12 27-27 27z" />
+<glyph glyph-name="edit" horiz-adv-x="1000" unicode="&#xef10;" d="M934 468c-1-1-2-2-3-2-44-45-88-89-132-134-4-4-6-11-6-17-1-81-1-161-1-241v-8c0-4-6-7-14-7h-554c-8 0-15 6-15 14v555c0 8 4 14 8 14h8c80 0 159 0 239 1 7 0 16 3 21 8 43 42 84 84 126 126 2 2 3 3 5 5 2 3-2 5-10 5h-529c-8 0-14-6-14-14v-846c0-8 6-14 14-14h846c8 0 15 6 15 14v529c0 8-2 14-4 12z m-597-105v-162c0-8 7-14 15-14h161c8 0 19 4 24 10 129 129 259 259 388 388 6 6 6 15 0 20l-169 170c-6 6-15 6-21 0-129-129-259-259-388-388-5-5-10-16-10-24z" />
+</font>
+</defs>
+</svg>
