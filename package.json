@@ -1,0 +1,11 @@
+{
+  "name": "verificamercancia",
+  "version": "1.0.0",
+  "description": "Aplicacion para registrar lo productos que se reciben de los proveedores",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jose Alejandro Lopez Flores <aleflo_1996@outlook.com>",
+  "license": "MIT"
+}
