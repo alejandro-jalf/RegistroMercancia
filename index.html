@@ -206,5 +206,28 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     
     <script src="./src/scripts/index.js"></script>
-    <script src="./src/scripts/initServiceWorker.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+        // Register a service worker hosted at the root of the
+        // site using the default scope.
+        console.log("inicando service worker");
+        navigator.serviceWorker.register('sw.js').then(function(registration) {
+            console.log('Service worker registration succeeded:', registration);
+        }).catch(function(error) {
+            console.log('Service worker registration failed:', error);
+        });
+        } else {
+        console.log('Service workers are not supported.');
+}
+    // if('serviceWorker' in navigator) {
+    //       navigator.serviceWorker.register('/serviceWorker.js', { scope: '/' })
+    //         .then(function(registration) {
+    //               console.log('Service Worker Registered');
+    //         });
+  
+    //       navigator.serviceWorker.ready.then(function(registration) {
+    //         console.log('Service Worker Ready');
+    //       });
+    //     }
+    </script>
 </html>
