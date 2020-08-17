@@ -1,7 +1,7 @@
 var app = new Vue({
     el: "#app",
     data: {
-        products: JSON.parse(window.localStorage.getItem("products"))|| [],
+        products: JSON.parse(localStorage.getItem("products"))|| [],
         warnings: [],
         warningsEdit: [],
         ProveedorName: "",
@@ -12,7 +12,7 @@ var app = new Vue({
         tableProducts: 0,
         dataEdit: {codigo: "", name: "", unidad: "", cantidad: ""},
         productSelect: "",
-        proveedorActual: window.localStorage.getItem("proveedor") || ""
+        proveedorActual: localStorage.getItem("proveedor") || ""
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
@@ -33,10 +33,10 @@ var app = new Vue({
         addProduct: function(codigo, name, unidad, cantidad) {
             (this.products).push({codigo, name, unidad, cantidad});
             const stringJoson = JSON.stringify(this.products);
-            window.localStorage.setItem("products", stringJoson);
+            localStorage.setItem("products", stringJoson);
             if (this.proveedorActual.trim().length === 0) {
                 this.proveedorActual = this.ProveedorName;
-                window.localStorage.setItem("proveedor", this.ProveedorName);
+                localStorage.setItem("proveedor", this.ProveedorName);
             }
         },
         setRegisterSelect: function({...register}) {
@@ -61,10 +61,10 @@ var app = new Vue({
             const arrayProducts = this.products.filter((element) => element.codigo !== this.productSelect);
             this.products = arrayProducts;
             const stringJoson = JSON.stringify(this.products);
-            window.localStorage.setItem("products", stringJoson);
+            localStorage.setItem("products", stringJoson);
             if (this.products.length === 0) {
                 this.proveedorActual = "";
-                window.localStorage.setItem("proveedor", this.ProveedorName);
+                localStorage.setItem("proveedor", this.ProveedorName);
             }
         },
         handleClean: function() {
@@ -106,9 +106,9 @@ var app = new Vue({
         },
         removeAllRegister: function() {
             this.products = [];
-            window.localStorage.setItem("products", this.products);
+            localStorage.setItem("products", this.products);
             this.proveedorActual = "";
-            window.localStorage.setItem("proveedor", "");
+            localStorage.setItem("proveedor", "");
         }
     }
 });
