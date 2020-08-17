@@ -4,7 +4,7 @@ var app = new Vue({
         products: JSON.parse(localStorage.getItem("products"))|| [],
         warnings: [],
         warningsEdit: [],
-        ProveedorName: "",
+        ProveedorName: "vacio",
         CodigoBarrasName: "",
         ProductoName: "",
         UnidadName: "",
@@ -12,7 +12,8 @@ var app = new Vue({
         tableProducts: 0,
         dataEdit: {codigo: "", name: "", unidad: "", cantidad: ""},
         productSelect: "",
-        proveedorActual: localStorage.getItem("proveedor") || ""
+        proveedorActual: localStorage.getItem("proveedor") || "",
+        otroProveedor: false
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
@@ -80,8 +81,7 @@ var app = new Vue({
         },
         validaDatos: function() {
             this.warnings = [];
-            console.log((/^[0-9]+$/g.test(this.CodigoBarrasName)));
-            if ((this.ProveedorName).trim() === "") (this.warnings).push("Falta seleccionar un Proveedor");
+            if ((this.ProveedorName).trim() === "" || (this.ProveedorName).trim() === "vacio") (this.warnings).push("Falta seleccionar un Proveedor");
             if ((this.CodigoBarrasName).trim() === "") (this.warnings).push("Falta ingresar codigo de barras");
             if ((this.ProductoName).trim() === "") (this.warnings).push("Falta ingresar producto");
             if ((this.UnidadName).trim() === "") (this.warnings).push("Falta seleccionar unidad");
@@ -109,6 +109,13 @@ var app = new Vue({
             localStorage.setItem("products", this.products);
             this.proveedorActual = "";
             localStorage.setItem("proveedor", "");
+        },
+        verifyProveedorSelected: function() {
+            this.otroProveedor = (this.ProveedorName === "");
+        },
+        bakcToSelect: function() {
+            this.ProveedorName = "vacio";
+            this.otroProveedor = (this.ProveedorName === "");
         }
     }
 });
