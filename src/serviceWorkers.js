@@ -6,9 +6,9 @@ var version = 'v1::';
 
 var offlineFundamentals = [
   '',
+  'index.html',
   'css/index.css',
-  'scripts/index.js',
-  'scripts/initServiceWorker.js'
+  'scripts/index.js'
 ];
 
 self.addEventListener("install", function(event) {
