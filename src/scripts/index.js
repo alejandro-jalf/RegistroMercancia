@@ -1,10 +1,10 @@
 var app = new Vue({
     el: "#app",
     data: {
-        products: JSON.parse(localStorage.getItem("products"))|| [],
+        products: JSON.parse(localStorage.getItem("products")) || [],
         warnings: [],
         warningsEdit: [],
-        ProveedorName: "vacio",
+        ProveedorName: "vacio", 
         CodigoBarrasName: "",
         ProductoName: "",
         UnidadName: "",
@@ -13,7 +13,8 @@ var app = new Vue({
         dataEdit: {codigo: "", name: "", unidad: "", cantidad: ""},
         productSelect: "",
         proveedorActual: localStorage.getItem("proveedor") || "",
-        otroProveedor: false
+        otroProveedor: false,
+        editPrducto: 0
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
@@ -33,8 +34,7 @@ var app = new Vue({
         },
         addProduct: function(codigo, name, unidad, cantidad) {
             (this.products).push({codigo, name, unidad, cantidad});
-            const stringJoson = JSON.stringify(this.products);
-            localStorage.setItem("products", stringJoson);
+            this.setProductsInLocalStorage(this.products);
             if (this.proveedorActual.trim().length === 0) {
                 this.proveedorActual = this.ProveedorName;
                 localStorage.setItem("proveedor", this.ProveedorName);
@@ -51,7 +51,7 @@ var app = new Vue({
                     const elementToReturn = (element.codigo === this.productSelect) ? this.dataEdit : element;
                     return elementToReturn;
                 });
-                this.products = arrayProducts;
+                this.setProductsInLocalStorage(arrayProducts);
                 this.$refs.cancelEdit.click();
             }
         },
@@ -59,18 +59,17 @@ var app = new Vue({
             this.productSelect = product;
         },
         removeProducto: function() {
-            const arrayProducts = this.products.filter((element) => element.codigo !== this.productSelect);
-            this.products = arrayProducts;
-            const stringJoson = JSON.stringify(this.products);
-            localStorage.setItem("products", stringJoson);
-            if (this.products.length === 0) {
-                this.proveedorActual = "";
-                localStorage.setItem("proveedor", this.ProveedorName);
+            if (this.products.length <= 1) {
+                this.removeAllRegister();
+                this.editPrducto += 1;
+            } else {
+                const arrayProducts = this.products.filter((element) => element.codigo !== this.productSelect);
+                this.setProductsInLocalStorage(arrayProducts);
             }
         },
         handleClean: function() {
             this.cleanCell();
-            this.ProveedorName = "";
+            this.ProveedorName = this.proveedorActual;
         },
         cleanCell: function() {
             this.warnings = [];
@@ -106,16 +105,35 @@ var app = new Vue({
         },
         removeAllRegister: function() {
             this.products = [];
-            localStorage.setItem("products", this.products);
             this.proveedorActual = "";
-            localStorage.setItem("proveedor", "");
+            this.ProveedorName = "vacio";
+            localStorage.clear();
         },
         verifyProveedorSelected: function() {
             this.otroProveedor = (this.ProveedorName === "");
         },
         bakcToSelect: function() {
             this.ProveedorName = "vacio";
-            this.otroProveedor = (this.ProveedorName === "");
+            this.otroProveedor = false;
+        },
+        createFile: function() {
+            var hoy = new Date();
+            var CsvString = `Proveedor,${this.proveedorActual}, ,Fecha,${hoy.getDate()}/${hoy.getMonth() + 1}/${hoy.getFullYear()}\r\n\r\n`;
+            CsvString += "Codigo de barras,Producto,Unidad,Cantidad\r\n"
+            this.products.map( product => {
+                CsvString += `${product.codigo},${product.name},${product.unidad},${product.cantidad}\r\n`;
+            });
+            CsvString = "data:application/csv," + encodeURIComponent(CsvString);
+            var x = document.createElement("A");
+            x.setAttribute("href", CsvString );
+            x.setAttribute("download",`Registro Mercancia ${this.proveedorActual} - ${hoy.getFullYear()} ${hoy.getMonth() + 1}${hoy.getDate()} T${hoy.getHours()}${hoy.getMinutes()}.csv`);
+            document.body.appendChild(x);
+            x.click();
+        },
+        setProductsInLocalStorage: function(newArrayProducts) {
+            this.products = newArrayProducts;
+            const stringJoson = JSON.stringify(this.products);
+            localStorage.setItem("products", stringJoson);
         }
     }
 });
