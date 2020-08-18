@@ -107,6 +107,7 @@ var app = new Vue({
             this.products = [];
             this.proveedorActual = "";
             this.ProveedorName = "vacio";
+            this.otroProveedor = false;
             localStorage.clear();
         },
         verifyProveedorSelected: function() {
