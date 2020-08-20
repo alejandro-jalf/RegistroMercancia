@@ -16,6 +16,11 @@
     </header>
     <div class="container" id="app">
         <form>
+            <div v-if="lectorVisible" id="container-escaner" class="text-center">
+                <button v-if="!scannerActivo" class="btn btn-danger" id="btn-scanear" @click="activateScanner">Escanear</button>
+                <div id="lector"></div>
+            </div>
+
             <div v-if="proveedorActual.trim().length === 0" class="form-group">
                 <label for="Proveedor">Proveedor:</label>
                 <div v-if="otroProveedor" class="input-group mb-3">
@@ -35,7 +40,12 @@
 
             <div class="form-group">
                 <label for="CodigoBarras">Codigo de barras:</label>
-                <input id="CodigoBarras" class="form-control" type="text" placeholder="Ingrese el codigo de barras" v-model="CodigoBarrasName">
+                <div class="input-group mb-3">
+                    <input id="CodigoBarras" class="form-control" type="text" placeholder="Ingrese el codigo de barras" v-model="CodigoBarrasName">
+                    <div class="input-group-append" @click="">
+                        <button class="btn btn-success" type="button" id="button-addon2" @click="activateLector">Scanner</button>
+                    </div>
+                </div>
             </div>
             
             <div class="form-group">
@@ -211,8 +221,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    
     <script src="./src/scripts/index.js"></script>
+
+    <script src="https://unpkg.com/quagga@0.12.1/dist/quagga.min.js"></script>
+    <script  src="./src/scripts/lector.js"></script>
+
     <script>
         if ('serviceWorker' in navigator) {
             console.log("inicando service worker");

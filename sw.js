@@ -7,8 +7,10 @@ var version = 'v1::';
 var offlineFundamentals = [
   '',
   'index.html',
+  'src/images/codigo1.jpg',
   'src/css/index.css',
-  'src/scripts/index.js'
+  'src/scripts/index.js',
+  'src/scripts/lector.js'
 ];
 
 self.addEventListener("install", function(event) {

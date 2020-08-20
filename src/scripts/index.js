@@ -1,3 +1,4 @@
+var objectQuagga = {initQuagga: () => {console.log("init ");}};
 var app = new Vue({
     el: "#app",
     data: {
@@ -14,13 +15,23 @@ var app = new Vue({
         productSelect: "",
         proveedorActual: localStorage.getItem("proveedor") || "",
         otroProveedor: false,
-        editPrducto: 0
+        editPrducto: 0,
+        lectorVisible: false,
+        scannerActivo: false
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
         this.$refs.cleanCamps.addEventListener('click', this.handleClean);
     },
     methods: {
+        activateLector: function () {
+            this.lectorVisible = true;
+        },
+        activateScanner: function () {
+            objectQuagga.initQuagga();
+            this.scannerActivo = true;
+            console.log("enciende");
+        },
         forceUpdate: function() {
             this.tableProducts += 1;
         },
@@ -77,6 +88,7 @@ var app = new Vue({
             this.ProductoName ="";
             this.UnidadNam = "";
             this.CantidadName = "";
+            this.lectorVisible = false;
         },
         validaDatos: function() {
             this.warnings = [];
