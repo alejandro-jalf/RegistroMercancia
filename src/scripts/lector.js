@@ -1,11 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
     const initLector = () => {
-        console.log("entraaaa");
         Quagga.init({
             inputStream: {
                 constraints: {
-                    width: 500,
-                    height: 500,
+                    width: 550,
+                    height: 550,
                 },
                 name: "Live",
                 type: "LiveStream",
@@ -19,18 +18,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log(err);
                 return
             }
-            console.log("Iniciado correctamente");
             Quagga.start();
         });
     
         Quagga.onDetected((data) => {
+            sound.play();
             app.CodigoBarrasName = data.codeResult.code;
-            // app.setDatosActuales(data.codeResult.code);
-            // Imprimimos todo el data para que puedas depurar
-            // console.log(data);
+            window.navigator.vibrate(200);
             Quagga.stop();
             app.scannerActivo = false;
-            console.log("stoped", app.codigoActual);
         });
     }
     objectQuagga.initQuagga = initLector;

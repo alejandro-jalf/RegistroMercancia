@@ -17,7 +17,8 @@ var app = new Vue({
         otroProveedor: false,
         editPrducto: 0,
         lectorVisible: false,
-        scannerActivo: false
+        scannerActivo: false,
+        textButtonScanner: "Scanner"
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
@@ -26,11 +27,16 @@ var app = new Vue({
     methods: {
         activateLector: function () {
             this.lectorVisible = true;
+            if (this.textButtonScanner === "Detener") {
+                Quagga.stop();
+                this.scannerActivo = false;
+                this.textButtonScanner = "Scanner";
+            }
         },
         activateScanner: function () {
             objectQuagga.initQuagga();
             this.scannerActivo = true;
-            console.log("enciende");
+            this.textButtonScanner = "Detener";
         },
         forceUpdate: function() {
             this.tableProducts += 1;
@@ -80,7 +86,7 @@ var app = new Vue({
         },
         handleClean: function() {
             this.cleanCell();
-            this.ProveedorName = this.proveedorActual;
+            this.ProveedorName = localStorage.getItem("proveedor") || "vacio";
         },
         cleanCell: function() {
             this.warnings = [];

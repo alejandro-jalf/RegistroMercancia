@@ -7,7 +7,9 @@ var version = 'v1::';
 var offlineFundamentals = [
   '',
   'index.html',
+  'src/audio/pop.mp3',
   'src/images/codigo1.jpg',
+  'src/css/icofont/',
   'src/css/index.css',
   'src/scripts/index.js',
   'src/scripts/lector.js'

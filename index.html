@@ -18,8 +18,9 @@
         <form>
             <div v-if="lectorVisible" id="container-escaner" class="text-center">
                 <button v-if="!scannerActivo" class="btn btn-danger" id="btn-scanear" @click="activateScanner">Escanear</button>
-                <div id="lector"></div>
+                <div id="lector" aria-describedby="helpScanner" v-bind:class="{darkBackground: !scannerActivo}"></div>
             </div>
+            <small v-if="scannerActivo" id="helpScanner" class="form-text text-muted">Para detener el scanner, presione el boton a lado del campo "Codigo de barras"</small>
 
             <div v-if="proveedorActual.trim().length === 0" class="form-group">
                 <label for="Proveedor">Proveedor:</label>
@@ -43,7 +44,7 @@
                 <div class="input-group mb-3">
                     <input id="CodigoBarras" class="form-control" type="text" placeholder="Ingrese el codigo de barras" v-model="CodigoBarrasName">
                     <div class="input-group-append" @click="">
-                        <button class="btn btn-success" type="button" id="button-addon2" @click="activateLector">Scanner</button>
+                        <button class="btn" v-bind:class="{'btn-success': !scannerActivo, 'btn-danger': scannerActivo}" type="button" id="button-addon2" @click="activateLector">{{textButtonScanner}}</button>
                     </div>
                 </div>
             </div>
@@ -227,6 +228,7 @@
     <script  src="./src/scripts/lector.js"></script>
 
     <script>
+        var sound = new Audio("./src/audio/pop.mp3");
         if ('serviceWorker' in navigator) {
             console.log("inicando service worker");
             navigator.serviceWorker.register('sw.js').then(function(registration) {
