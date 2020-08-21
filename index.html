@@ -48,6 +48,7 @@
             <div id="divider"></div>
             
             <div v-if="lectorVisible" id="container-escaner" class="text-center">
+                <div v-if="scannerActivo" id="laserImage"></div>
                 <button v-if="!scannerActivo" class="btn btn-danger" id="btn-scanear" @click="activateScanner">Escanear</button>
                 <div id="lector" aria-describedby="helpScanner" v-bind:class="{darkBackground: !scannerActivo}"></div>
             </div>

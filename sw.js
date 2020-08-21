@@ -2,13 +2,12 @@
 
 console.log('WORKER: executing.');
 
-var version = 'v2::';
+var version = 'v3::';
 
 var offlineFundamentals = [
   '',
   'index.html',
-  'src/audio/pop.mp3',
-  'src/images/codigo1.jpg',
+  'src/audio/beep6.mp3',
   'src/css/icofont/',
   'src/css/index.css',
   'src/scripts/index.js',

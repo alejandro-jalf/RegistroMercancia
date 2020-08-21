@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         Quagga.onDetected((data) => {
             sound.play();
             app.CodigoBarrasName = data.codeResult.code;
-            window.navigator.vibrate(200);
+            window.navigator.vibrate(500);
             Quagga.stop();
             app.scannerActivo = false;
             app.textButtonScanner = "Scanner";
