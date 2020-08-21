@@ -183,8 +183,10 @@ var app = new Vue({
                 nameProvedores += `_${register}`;
                 CsvString += `\r\n ,Proveedor,${register}\r\n\r\n`;
                 CsvString += " ,Codigo de barras,Producto,Unidad,Cantidad\r\n"
-                this.products.map( product => {
-                    CsvString += ` ,${product.codigo},${product.name},${product.unidad},${product.cantidad}\r\n`;
+                this.products.forEach( product => {
+                    if (product.proveedor == register) {
+                        CsvString += ` ,${product.codigo},${product.name},${product.unidad},${product.cantidad}\r\n`;
+                    }
                 });
                 CsvString += `\r\n`;
             });

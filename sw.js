@@ -2,7 +2,7 @@
 
 console.log('WORKER: executing.');
 
-var version = 'v3::';
+var version = 'v3.1::';
 
 var offlineFundamentals = [
   '',
