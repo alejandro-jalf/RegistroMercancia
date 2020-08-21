@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
         Quagga.init({
             inputStream: {
                 constraints: {
-                    width: 550,
-                    height: 550,
+                    width: 1920,
+                    height: 1080,
                 },
                 name: "Live",
                 type: "LiveStream",
@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             window.navigator.vibrate(200);
             Quagga.stop();
             app.scannerActivo = false;
+            app.textButtonScanner = "Scanner";
         });
     }
     objectQuagga.initQuagga = initLector;

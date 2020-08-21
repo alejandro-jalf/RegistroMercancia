@@ -16,6 +16,37 @@
     </header>
     <div class="container" id="app">
         <form>
+            <div v-if="RegisterProveedores.length > 0" id="cardProveedores" class="btn-toolbar alert alert-info d-flex justify-content-center mt-4" role="toolbar" aria-label="Registros disponibles">
+                <div v-for="provedor in RegisterProveedores" class="btn-group mr-3 mt-1" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Abrir Registro" @click="openRegister(provedor)">{{provedor}}</button>
+                    <button type="button" class="btn btn-danger icofont-bin" data-toggle="modal" data-target="#modalDeleteRegister" @click="setSelectProveedor(provedor)"></button>
+                </div>
+            </div>
+
+            <button v-if="RegisterProveedores.length > 0" class="btn btn-primary" type="button" @click="newRegister">Nuevo Registro</button>
+
+            <div id="modalDeleteRegister" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="my-modal-title">Eliminando registro de proveedor</h5>
+                            <button class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Quiere eliminar todos los registros del proveedor "{{proveedorSelect}}"?
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-warning" type="button" data-dismiss="modal" @click="deleteRegisterOfProveedor(proveedorSelect)">Aceptar</button>
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="divider"></div>
+            
             <div v-if="lectorVisible" id="container-escaner" class="text-center">
                 <button v-if="!scannerActivo" class="btn btn-danger" id="btn-scanear" @click="activateScanner">Escanear</button>
                 <div id="lector" aria-describedby="helpScanner" v-bind:class="{darkBackground: !scannerActivo}"></div>
@@ -32,8 +63,7 @@
                 </div>
                 <select v-if="!otroProveedor" id="Proveedor" class="custom-select" aria-describedby="helpProveedor" v-model="ProveedorName" ref="otherProveedor" @click="verifyProveedorSelected">
                     <option value="vacio">Selecciones un proveedor..</option>
-                    <option value="Capistrano">Capistrano</option>
-                    <option value="Salmi">Salmi</option>
+                    <option v-for="proveedor in ListaProveedores" v-if="!existRegisterOfProveedor(proveedor)">{{proveedor}}</option>
                     <option value="">Otro</option>
                 </select>
                 <small id="helpProveedor" class="form-text text-muted">Una vez hecho el primer registro el proveedor no se podra modificar, a menos que elimine todos los registros</small>
@@ -99,7 +129,7 @@
             </thead>
 
             <tbody :key="tableProducts">
-                <tr v-for="product in products">
+                <tr v-for="product in products" v-if="product.proveedor === proveedorActual">
                     <td>{{product.codigo}}</td>
                     <td>{{product.name}}</td>
                     <td>{{product.unidad}}</td>
@@ -192,7 +222,7 @@
         </div>
 
         <button v-if="products.length > 0" class="btn btn-success form-check-inline" @click="createFile">Generar archivo</button>
-        <button v-if="products.length > 0" class="btn btn-danger" data-toggle="modal" data-target="#modalDeleteAlRegister">Eliminar registros</button>
+        <button v-if="products.length > 0" class="btn btn-danger" data-toggle="modal" data-target="#modalDeleteAlRegister">Eliminar todos los registros</button>
         
         <div class="modal fade" id="modalDeleteAlRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -228,7 +258,7 @@
     <script  src="./src/scripts/lector.js"></script>
 
     <script>
-        var sound = new Audio("./src/audio/pop.mp3");
+        var sound = new Audio("./src/audio/beep6.mp3");
         if ('serviceWorker' in navigator) {
             console.log("inicando service worker");
             navigator.serviceWorker.register('sw.js').then(function(registration) {
