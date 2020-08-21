@@ -184,8 +184,9 @@ var app = new Vue({
                 CsvString += `\r\n ,Proveedor,${register}\r\n\r\n`;
                 CsvString += " ,Codigo de barras,Producto,Unidad,Cantidad\r\n"
                 this.products.map( product => {
-                    CsvString += ` ,${product.codigo},${product.name},${product.unidad},${product.cantidad}\r\n\r\n`;
+                    CsvString += ` ,${product.codigo},${product.name},${product.unidad},${product.cantidad}\r\n`;
                 });
+                CsvString += `\r\n`;
             });
             CsvString = "data:application/csv," + encodeURIComponent(CsvString);
             var x = document.createElement("A");
