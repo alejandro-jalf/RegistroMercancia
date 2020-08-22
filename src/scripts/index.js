@@ -23,7 +23,7 @@ var app = new Vue({
         textButtonScanner: "Scanner",
         proveedorSelect: "",
         keyProveedor: 0,
-        console: "Consola v3.8"
+        console: "Consola v3.9"
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
@@ -190,7 +190,7 @@ var app = new Vue({
         },
         verifyProveedorSelected: function() {
             this.otroProveedor = (this.ProveedorName === "");
-            alert(this.ProveedorName+"__"+this.otroProveedor);
+            this.console = (this.ProveedorName+"__"+this.otroProveedor);
         },
         bakcToSelect: function() {
             this.ProveedorName = "vacio";
