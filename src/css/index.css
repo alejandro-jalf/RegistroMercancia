@@ -20,6 +20,13 @@ body {
     border: 1px solid #313131;
     background: #313131;
 }
+canvas{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+}
 #laserImage{
     position: absolute;
     width: 100%;

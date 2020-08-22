@@ -51,6 +51,7 @@
                 <div v-if="scannerActivo" id="laserImage"></div>
                 <button v-if="!scannerActivo" class="btn btn-danger" id="btn-scanear" @click="activateScanner">Escanear</button>
                 <div id="lector" aria-describedby="helpScanner" v-bind:class="{darkBackground: !scannerActivo}"></div>
+                <canvas></canvas>
             </div>
             <small v-if="scannerActivo" id="helpScanner" class="form-text text-muted">Para detener el scanner, presione el boton a lado del campo "Codigo de barras"</small>
 
