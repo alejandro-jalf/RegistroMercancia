@@ -21,7 +21,8 @@ var app = new Vue({
         lectorVisible: false,
         scannerActivo: false,
         textButtonScanner: "Scanner",
-        proveedorSelect: ""
+        proveedorSelect: "",
+        keyProveedor: 0
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
@@ -166,6 +167,9 @@ var app = new Vue({
 
             if(!(/^[0-9]+$/g.test(this.dataEdit.codigo))) (this.warningsEdit).push("Codigo de barras debe ser numero");
             if(!(/^([0-9]+.*[0-9]+)$|^([0-9]+)$/g.test(this.dataEdit.cantidad))) (this.warningsEdit).push("Cantidad debe ser numero");
+        },
+        forceUpdateProveedor: function() {
+            this.keyProveedor += 1;
         },
         removeAllRegister: function() {
             this.products = [];

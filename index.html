@@ -57,16 +57,16 @@
 
             <div v-if="proveedorActual.trim().length === 0" class="form-group">
                 <label for="Proveedor">Proveedor:</label>
-                <div v-if="otroProveedor" class="input-group mb-3">
+                <div v-if="otroProveedor" class="input-group mb-3" :key="keyProveedor">
                     <input type="text" class="form-control" v-model="ProveedorName" placeholder="Nombre del Proveedor" v-focus>
                     <div class="input-group-append" @click="bakcToSelect">
                         <button class="btn btn-secondary" type="button" id="button-addon2">Regresar</button>
                     </div>
                 </div>
-                <select v-if="!otroProveedor" id="Proveedor" class="custom-select" aria-describedby="helpProveedor" v-model="ProveedorName" ref="otherProveedor" @click="verifyProveedorSelected">
+                <select v-if="!otroProveedor" id="Proveedor" class="custom-select" aria-describedby="helpProveedor" v-model="ProveedorName" ref="otherProveedor" @click="verifyProveedorSelected" :key="keyProveedor">
                     <option value="vacio">Selecciones un proveedor..</option>
                     <option v-for="proveedor in ListaProveedores" v-if="!existRegisterOfProveedor(proveedor)">{{proveedor}}</option>
-                    <option value="">Otro</option>
+                    <option value="" @click="forceUpdateProveedor">Otro</option>
                 </select>
                 <small id="helpProveedor" class="form-text text-muted">Una vez hecho el primer registro el proveedor no se podra modificar, a menos que elimine todos los registros</small>
             </div>
