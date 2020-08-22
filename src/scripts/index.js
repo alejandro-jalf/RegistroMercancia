@@ -170,6 +170,9 @@ var app = new Vue({
         },
         forceUpdateProveedor: function() {
             this.keyProveedor += 1;
+            if (this.$refs.selectProveedores) {
+                this.$refs.selectProveedores.click();
+            }
         },
         removeAllRegister: function() {
             this.products = [];

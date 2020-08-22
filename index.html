@@ -63,7 +63,7 @@
                         <button class="btn btn-secondary" type="button" id="button-addon2">Regresar</button>
                     </div>
                 </div>
-                <select v-if="!otroProveedor" id="Proveedor" class="custom-select" aria-describedby="helpProveedor" v-model="ProveedorName" ref="otherProveedor" @click="verifyProveedorSelected" :key="keyProveedor">
+                <select v-if="!otroProveedor" id="Proveedor" class="custom-select" aria-describedby="helpProveedor" v-model="ProveedorName" ref="otherProveedor" @click="verifyProveedorSelected" :key="keyProveedor" ref="selectProveedores">
                     <option value="vacio">Selecciones un proveedor..</option>
                     <option v-for="proveedor in ListaProveedores" v-if="!existRegisterOfProveedor(proveedor)">{{proveedor}}</option>
                     <option value="" @click="forceUpdateProveedor">Otro</option>
