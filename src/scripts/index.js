@@ -23,7 +23,7 @@ var app = new Vue({
         textButtonScanner: "Scanner",
         proveedorSelect: "",
         keyProveedor: 0,
-        console: "Consola v3.10"
+        console: "Consola v3.11"
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
@@ -178,7 +178,6 @@ var app = new Vue({
                 alert("entra2");
                 this.$refs.otherProveedor.click();
             }
-            this.console = dataConsole;;
         },
         removeAllRegister: function() {
             this.products = [];
