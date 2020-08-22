@@ -55,15 +55,15 @@
             </div>
             <small v-if="scannerActivo" id="helpScanner" class="form-text text-muted">Para detener el scanner, presione el boton a lado del campo "Codigo de barras"</small>
 
-            <div v-if="proveedorActual.trim().length === 0" class="form-group">
+            <div v-if="proveedorActual.trim().length === 0" class="form-group" :key="keyProveedor">
                 <label for="Proveedor">Proveedor:</label>
-                <div v-if="otroProveedor" class="input-group mb-3" :key="keyProveedor">
+                <div v-if="otroProveedor" class="input-group mb-3">
                     <input type="text" class="form-control" v-model="ProveedorName" placeholder="Nombre del Proveedor" v-focus>
                     <div class="input-group-append" @click="bakcToSelect">
                         <button class="btn btn-secondary" type="button" id="button-addon2">Regresar</button>
                     </div>
                 </div>
-                <select v-if="!otroProveedor" id="Proveedor" class="custom-select" aria-describedby="helpProveedor" v-model="ProveedorName" ref="otherProveedor" @click="verifyProveedorSelected" :key="keyProveedor" ref="selectProveedores">
+                <select v-if="!otroProveedor" id="Proveedor" class="custom-select" aria-describedby="helpProveedor" v-model="ProveedorName" ref="otherProveedor" @click="verifyProveedorSelected">
                     <option value="vacio">Selecciones un proveedor..</option>
                     <option v-for="proveedor in ListaProveedores" v-if="!existRegisterOfProveedor(proveedor)">{{proveedor}}</option>
                     <option value="" @click="forceUpdateProveedor">Otro</option>

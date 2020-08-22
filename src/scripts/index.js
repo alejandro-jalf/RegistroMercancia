@@ -170,8 +170,8 @@ var app = new Vue({
         },
         forceUpdateProveedor: function() {
             this.keyProveedor += 1;
-            if (this.$refs.selectProveedores) {
-                this.$refs.selectProveedores.click();
+            if (this.$refs.otherProveedor) {
+                this.$refs.otherProveedor.click();
             }
         },
         removeAllRegister: function() {
