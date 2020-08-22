@@ -22,7 +22,8 @@ var app = new Vue({
         scannerActivo: false,
         textButtonScanner: "Scanner",
         proveedorSelect: "",
-        keyProveedor: 0
+        keyProveedor: 0,
+        console: "Consola"
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
@@ -169,10 +170,13 @@ var app = new Vue({
             if(!(/^([0-9]+.*[0-9]+)$|^([0-9]+)$/g.test(this.dataEdit.cantidad))) (this.warningsEdit).push("Cantidad debe ser numero");
         },
         forceUpdateProveedor: function() {
+            let dataConsole = "entra";
             this.keyProveedor += 1;
             if (this.$refs.otherProveedor) {
+                dataConsole += ", entra2"
                 this.$refs.otherProveedor.click();
             }
+            this.console = dataConsole;;
         },
         removeAllRegister: function() {
             this.products = [];
