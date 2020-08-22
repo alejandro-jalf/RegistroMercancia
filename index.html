@@ -63,10 +63,10 @@
                         <button class="btn btn-secondary" type="button" id="button-addon2">Regresar</button>
                     </div>
                 </div>
-                <select v-if="!otroProveedor" id="Proveedor" class="custom-select" aria-describedby="helpProveedor" v-model="ProveedorName" ref="otherProveedor" @click="verifyProveedorSelected">
+                <select v-if="!otroProveedor" id="Proveedor" class="custom-select" aria-describedby="helpProveedor" v-model="ProveedorName" ref="otherProveedor" @change="verifyProveedorSelected">
                     <option value="vacio">Selecciones un proveedor..</option>
                     <option v-for="proveedor in ListaProveedores" v-if="!existRegisterOfProveedor(proveedor)">{{proveedor}}</option>
-                    <option value="" onclick="forceUpdatePro()">Otro</option>
+                    <option value="">Otro</option>
                 </select>
                 <small id="helpProveedor" class="form-text text-muted">Una vez hecho el primer registro el proveedor no se podra modificar, a menos que elimine todos los registros</small>
                 <small id="helpProveedor" class="form-text text-muted">{{console}}</small>
@@ -261,9 +261,6 @@
     <script  src="./src/scripts/lector.js"></script>
 
     <script>
-        function forceUpdatePro() {
-            app.forceUpdateProveedor();
-        }
         var sound = new Audio("./src/audio/beep6.mp3");
         if ('serviceWorker' in navigator) {
             console.log("inicando service worker");

@@ -23,7 +23,7 @@ var app = new Vue({
         textButtonScanner: "Scanner",
         proveedorSelect: "",
         keyProveedor: 0,
-        console: "Consola v3.11"
+        console: "Consola v3.12"
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
