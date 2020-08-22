@@ -23,7 +23,7 @@ var app = new Vue({
         textButtonScanner: "Scanner",
         proveedorSelect: "",
         keyProveedor: 0,
-        console: "Consola"
+        console: "Consola v3.8"
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
@@ -170,10 +170,12 @@ var app = new Vue({
             if(!(/^([0-9]+.*[0-9]+)$|^([0-9]+)$/g.test(this.dataEdit.cantidad))) (this.warningsEdit).push("Cantidad debe ser numero");
         },
         forceUpdateProveedor: function() {
-            let dataConsole = "entra";
+            // let dataConsole = "entra";
             this.keyProveedor += 1;
+            alert("entra");
             if (this.$refs.otherProveedor) {
-                dataConsole += ", entra2"
+                // dataConsole += ", entra2"
+                alert("entra2");
                 this.$refs.otherProveedor.click();
             }
             this.console = dataConsole;;
@@ -188,6 +190,7 @@ var app = new Vue({
         },
         verifyProveedorSelected: function() {
             this.otroProveedor = (this.ProveedorName === "");
+            alert(this.ProveedorName+"__"+this.otroProveedor);
         },
         bakcToSelect: function() {
             this.ProveedorName = "vacio";
