@@ -27,6 +27,13 @@ var app = new Vue({
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
         this.$refs.cleanCamps.addEventListener('click', this.handleClean);
     },
+    directives: {
+        focus: {
+            inserted: function (el) {
+                el.focus()
+            }
+        }
+    },
     methods: {
         openRegister: function(proveedor) {
             this.ProveedorName = proveedor;
