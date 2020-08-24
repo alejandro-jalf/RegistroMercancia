@@ -30,19 +30,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 return
             }
             Quagga.start();
-            const video = document.querySelector('#lector');
-            const track1 = Quagga.CameraAccess.getActiveTrack();
-            console.log(track1);
-            app.console = track1;
-            video.addEventListener('loadedmetadata', (e) => {
-                window.setTimeout(() => (
-                    onCapabilitiesReady(track.getCapabilities())
-                ), 500);
-            });
+            // const video = document.querySelector('#lector');
+            // const track1 = Quagga.CameraAccess.getActiveTrack();
+            // console.log(track1);
+            // app.console = track1;
+            // video.addEventListener('loadedmetadata', (e) => {
+            //     window.setTimeout(() => (
+            //         onCapabilitiesReady(track.getCapabilities())
+            //     ), 500);
+            // });
             
-            function onCapabilitiesReady(capabilities) {
-                app.console = "data:"+capabilities;
-            }
+            // function onCapabilitiesReady(capabilities) {
+            //     app.console = "data:"+capabilities;
+            // }
 
             // function onCapabilitiesReady(capabilities) {
             //     if (capabilities.zoom) {
@@ -53,27 +53,27 @@ document.addEventListener("DOMContentLoaded", () => {
             //     }
             // }
 
-            // navigator.mediaDevices.getUserMedia({  
-            //     video: {
-            //       facingMode: 'environment',
-            //     }
-            //   })
-            //   .then((stream) => {
-            //     const video = document.querySelector('#lector');
-            //     video.srcObject = stream;
+            navigator.mediaDevices.getUserMedia({  
+                video: {
+                  facingMode: 'environment',
+                }
+              })
+              .then((stream) => {
+                const video = document.querySelector('#lector');
+                video.srcObject = stream;
 
-            //     const track = stream.getVideoTracks()[0];
-            //     console.log(track); //MediaStreamTrack { kind: "video", id: "{deb72b1a-9ab9-4247-b5f0-0fc5438c7eca}", label: "HP Truevision HD", enabled: true, muted: false, onmute: null, onunmute: null, readyState: "live", onended: null }
-            //     video.addEventListener('loadedmetadata', (e) => {
-            //         window.setTimeout(() => (
-            //           onCapabilitiesReady(track.getCapabilities())
-            //         ), 500);
-            //       });
-            //       function onCapabilitiesReady(capabilities) {  
-            //         console.log("data:"+capabilities);
-            //       }
-            //   })
-            //   .catch(err => console.error('getUserMedia() failed: ', err));
+                const track = stream.getVideoTracks()[0];
+                console.log(track); //MediaStreamTrack { kind: "video", id: "{deb72b1a-9ab9-4247-b5f0-0fc5438c7eca}", label: "HP Truevision HD", enabled: true, muted: false, onmute: null, onunmute: null, readyState: "live", onended: null }
+                video.addEventListener('loadedmetadata', (e) => {
+                    window.setTimeout(() => (
+                      onCapabilitiesReady(track.getCapabilities())
+                    ), 500);
+                  });
+                  function onCapabilitiesReady(capabilities) {  
+                    app.console = ("data:"+capabilities);
+                  }
+              })
+              .catch(err => console.error('getUserMedia() failed: ', err));
         });
     
         Quagga.onDetected((data) => {
