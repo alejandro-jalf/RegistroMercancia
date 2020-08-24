@@ -54,7 +54,7 @@
                 <canvas></canvas>
             </div>
             <small v-if="scannerActivo" id="helpScanner" class="form-text text-muted">Para detener el scanner, presione el boton a lado del campo "Codigo de barras"</small>
-            <small v-if="scannerActivo" id="helpScanner" class="form-text text-muted">{{console}}</small>
+            <small id="helpScanner" class="form-text text-muted">{{console}}</small>
 
             <div v-if="proveedorActual.trim().length === 0" class="form-group">
                 <label for="Proveedor">Proveedor:</label>

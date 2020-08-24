@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const video = document.querySelector('#lector');
             const track1 = Quagga.CameraAccess.getActiveTrack();
             console.log(track1);
+            app.console = track1;
             video.addEventListener('loadedmetadata', (e) => {
                 window.setTimeout(() => (
                     onCapabilitiesReady(track.getCapabilities())
