@@ -22,8 +22,7 @@ var app = new Vue({
         scannerActivo: false,
         textButtonScanner: "Scanner",
         proveedorSelect: "",
-        keyProveedor: 0,
-        console: "v3.16"
+        keyProveedor: 0
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
