@@ -27,6 +27,7 @@ var app = new Vue({
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
         this.$refs.cleanCamps.addEventListener('click', this.handleClean);
+        this.detectedLector();
     },
     directives: {
         focus: {
@@ -215,6 +216,20 @@ var app = new Vue({
             const stringJson = JSON.stringify(this.RegisterProveedores);
             console.log("proveedores", stringJson);
             localStorage.setItem("proveedores", stringJson);
+        },
+        detectedLector: function() {
+            $(window).scannerDetection();
+            $(window).bind('scannerDetectionComplete',function(e,data){
+                console.log('complete '+data.string);
+                $("#CodigoBarras").val(data.string);
+            })
+            .bind('scannerDetectionError',function(e,data){
+                console.log('detection error '+data.string);
+            })
+            .bind('scannerDetectionReceive',function(e,data){
+                console.log('Recieve');
+                console.log(data.evt.which);
+            });
         }
     }
 });
