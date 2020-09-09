@@ -1,12 +1,12 @@
 $(document).ready(function() {
-     //$("#bCode").scannerDetection();
+     //$("#CodigoBarras").scannerDetection();
 
     console.log('all is well');
     
     $(window).scannerDetection();
     $(window).bind('scannerDetectionComplete',function(e,data){
         console.log('complete '+data.string);
-        $("#bCode").val(data.string);
+        $("#CodigoBarras").val(data.string);
     })
     .bind('scannerDetectionError',function(e,data){
         console.log('detection error '+data.string);
