@@ -1,4 +1,10 @@
-var objectQuagga = {initQuagga: () => {console.log("init ");}};
+var objectQuagga = {
+    initQuagga: () => {console.log("init");}
+};
+var lectorFisico = {
+    start: () => {console.log("start");},
+    stop: () => {console.log("stop");},
+}
 var app = new Vue({
     el: "#app",
     data: {
@@ -20,9 +26,11 @@ var app = new Vue({
         editPrducto: 0,
         lectorVisible: false,
         scannerActivo: false,
-        textButtonScanner: "Scanner",
+        textButtonScanner: "Camara",
         proveedorSelect: "",
-        keyProveedor: 0
+        keyProveedor: 0,
+        scannerFisico: false,
+        textScannerFisico: "Fisico"
     },
     mounted: function() {
         this.$refs.addRegister.addEventListener('click', this.handleRegister);
@@ -36,6 +44,17 @@ var app = new Vue({
         }
     },
     methods: {
+        handleLectorFisico: function() {
+            if (this.textScannerFisico == "Fisico") {
+                this.scannerFisico = true;
+                this.textScannerFisico = "Detener"
+                lectorFisico.start();
+                return;
+            }
+            this.scannerFisico = false;
+            this.textScannerFisico = "Fisico";
+            lectorFisico.stop();
+        },
         openRegister: function(proveedor) {
             this.ProveedorName = proveedor;
             this.proveedorActual = proveedor;
@@ -71,7 +90,7 @@ var app = new Vue({
             if (this.textButtonScanner === "Detener") {
                 Quagga.stop();
                 this.scannerActivo = false;
-                this.textButtonScanner = "Scanner";
+                this.textButtonScanner = "Camara";
             }
         },
         activateScanner: function () {
