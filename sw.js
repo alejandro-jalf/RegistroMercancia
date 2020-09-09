@@ -2,7 +2,7 @@
 
 console.log('WORKER: executing.');
 
-var version = 'v3.18::';
+var version = 'v3.19::';
 
 var offlineFundamentals = [
   '',
@@ -11,7 +11,9 @@ var offlineFundamentals = [
   'src/css/icofont/',
   'src/css/index.css',
   'src/scripts/index.js',
-  'src/scripts/lector.js'
+  'src/scripts/lector.js',
+  'src/scripts/jquery.scannerdetection.js',
+  'src/scripts/lectorFisico.js'
 ];
 
 self.addEventListener("install", function(event) {
