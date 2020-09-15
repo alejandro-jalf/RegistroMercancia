@@ -22,7 +22,7 @@ var app = new Vue({
         editPrducto: 0,
         lectorVisible: false,
         scannerActivo: false,
-        textButtonScanner: "Camara",
+        textButtonScanner: "Scanner",
         proveedorSelect: "",
         keyProveedor: 0
     },
@@ -73,7 +73,7 @@ var app = new Vue({
             if (this.textButtonScanner === "Detener") {
                 Quagga.stop();
                 this.scannerActivo = false;
-                this.textButtonScanner = "Camara";
+                this.textButtonScanner = "Scanner";
             }
         },
         activateScanner: function () {

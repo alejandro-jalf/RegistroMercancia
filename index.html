@@ -78,7 +78,7 @@
                 <div class="input-group mb-3">
                     <input id="CodigoBarras" class="form-control" type="text" placeholder="Ingrese el codigo de barras" v-model="CodigoBarrasName">
                     <div class="input-group-append btn-group" role="group" aria-label="Basic example">
-                        <button class="btn" v-bind:class="{'btn-dark': !scannerActivo, 'btn-danger': scannerActivo}" type="button" @click="activateLector">{{textButtonScanner}}</button>
+                        <button class="btn" v-bind:class="{'btn-success': !scannerActivo, 'btn-danger': scannerActivo}" type="button" @click="activateLector">{{textButtonScanner}}</button>
                     </div>
                 </div>
             </div>
